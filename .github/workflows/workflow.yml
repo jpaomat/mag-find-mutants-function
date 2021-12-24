@@ -126,7 +126,7 @@ jobs:
         run: |
           npx ncc build index.ts
           zip -j deploy.zip ./dist/*
-          aws lambda update-function-code --function-name==mag-stadistics-dna-processed-function --zip-file=fileb://deploy.zip
+          aws lambda update-function-code --function-name=mag-stadistics-dna-processed-function --zip-file=fileb://deploy.zip
       #   uses: ./.github/actions/bdb-dig-do-pipelines-actions/lambdas
       #   with:
       #     function-name: ${{ env.team }}-${{ env.project_name }}
