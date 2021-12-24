@@ -32,3 +32,41 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
+
+  test-lint:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Running Linter
+        run: npm run lint
+
+  test-coverage:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Running Test
+        run: |
+          npm run test
+      - name: Persist Data
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
