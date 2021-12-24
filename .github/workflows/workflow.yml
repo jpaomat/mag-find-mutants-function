@@ -1,14 +1,13 @@
 name: QA-build-test-deploy
 on:
   push:
-    branches: [master, feature/*]
+    branches: [main, feature/*]
 env:
   ### VARIABLES GENERALES ###
   project_name: "mag-stadistics-dna-processed-function"
   team: "mag"
   language: "javascript"
   files_compress: "src node_modules index.js package.json package-lock.json"
-  ### VARIABLES QA IaC ###
   handler: index.handler
   memory: 128
 
@@ -27,7 +26,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
           restore-keys: npm-${{ env.cache-name }}
       - name: Install Dependencies
         run: |
@@ -44,7 +43,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
           restore-keys: npm-${{ env.cache-name }}
       - name: Running Linter
         run: npm run lint
@@ -60,7 +59,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
           restore-keys: npm-${{ env.cache-name }}
       - name: Running Test
         run: |
@@ -87,7 +86,7 @@ jobs:
         id: long-lived-branch
         run: |
           CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
-          if [ "$CURRENT_BRANCH" != "master" ] && [ "$CURRENT_BRANCH" != "staging" ] && [ "$CURRENT_BRANCH" != "qa" ]
+          if [ "$CURRENT_BRANCH" != "main" ] && [ "$CURRENT_BRANCH" != "staging" ] && [ "$CURRENT_BRANCH" != "qa" ]
           then
             CURRENT_BRANCH="qa"
           fi
@@ -127,16 +126,3 @@ jobs:
           npx ncc build index.ts
           zip -j deploy.zip ./dist/*
           aws lambda update-function-code --function-name=mag-stadistics-dna-processed-function --zip-file=fileb://deploy.zip
-      #   uses: ./.github/actions/bdb-dig-do-pipelines-actions/lambdas
-      #   with:
-      #     function-name: ${{ env.team }}-${{ env.project_name }}
-      #     aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: "us-east-1"
-      #     version: $GITHUB_SHA
-      #     files-to-compress: ${{ env.files_compress }}
-      #     function-handler: ${{ env.handler }}
-      #     function-memory-size: ${{ env.memory }}
-      #     function-runtime: nodejs12.x
-      #     path-to-env-vars: pipeline/qa-env.json
