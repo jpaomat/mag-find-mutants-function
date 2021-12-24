@@ -1,0 +1,22 @@
+{
+  "name": "mag-stadistics-dna-processed-function",
+  "version": "1.0.0",
+  "description": "This service is responsible for generating the statistics of all the DNA sequences processed to determine if a human is a mutant",
+  "main": "index.js",
+  "scripts": {
+    "test_jest": "jest --coverage --watchAll",
+    "test": "jest --coverage --no-watchman",
+    "lint": "npx eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpaomat/mag-stadistics-dna-processed-function.git"
+  },
+  "keywords": [],
+  "author": "jpaomat@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpaomat/mag-stadistics-dna-processed-function/issues"
+  },
+  "homepage": "https://github.com/jpaomat/mag-stadistics-dna-processed-function#readme"
+}

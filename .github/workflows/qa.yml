@@ -1,0 +1,34 @@
+name: QA-build-test-deploy
+on:
+  push:
+    branches: [qa, feature/*]
+env:
+  ### VARIABLES GENERALES ###
+  project_name: "mag-stadistics-dna-processed-function"
+  team: "mag"
+  language: "javascript"
+  files_compress: "src node_modules index.js package.json package-lock.json"
+  ### VARIABLES QA IaC ###
+  handler: index.handler
+  memory: 128
+
+jobs:
+  install-dev-dependencies:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Install Dependencies
+        run: |
+          npm install
