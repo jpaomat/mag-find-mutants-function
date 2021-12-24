@@ -82,21 +82,21 @@ jobs:
         with:
           name: coverage
           path: coverage
+      - name: Current Branch
+        shell: bash
+        id: long-lived-branch
+        run: |
+          CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
+          if [ "$CURRENT_BRANCH" != "master" ] && [ "$CURRENT_BRANCH" != "staging" ] && [ "$CURRENT_BRANCH" != "qa" ]
+          then
+            CURRENT_BRANCH="qa"
+          fi
+          echo "##[set-output name=branch;]$(echo ${CURRENT_BRANCH})"
+          echo "Sonar Branch report => " ${CURRENT_BRANCH}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # sonar:
-  #   runs-on: ubuntu-20.04
-  #   needs: [test-lint, test-coverage]
-  #   steps:
-  #     - name: SonarCloud Scanner
-  #       uses: ./.github/actions/bbog-dig-sonarcloud-pipeline
-  #       with:
-  #         language: ${{ env.language }}
-  #         current-branch: ${{ steps.long-lived-branch.outputs.branch }}
-  #         access-token: ${{ secrets.SONAR_CLOUD_TOKEN }}
-  #         project-name: ${{ github.event.repository.name }}
-  #         project-key: ${{ github.event.repository.name }}
+
