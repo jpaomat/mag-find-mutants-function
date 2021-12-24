@@ -1,7 +1,7 @@
 name: QA-build-test-deploy
 on:
   push:
-    branches: [qa, feature/*]
+    branches: [master, feature/*]
 env:
   ### VARIABLES GENERALES ###
   project_name: "mag-stadistics-dna-processed-function"
@@ -27,7 +27,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
           restore-keys: npm-${{ env.cache-name }}
       - name: Install Dependencies
         run: |
@@ -44,7 +44,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
           restore-keys: npm-${{ env.cache-name }}
       - name: Running Linter
         run: npm run lint
@@ -60,7 +60,7 @@ jobs:
           cache-name: nodejs-github-actions
         with:
           path: node_modules
-          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-master
           restore-keys: npm-${{ env.cache-name }}
       - name: Running Test
         run: |
