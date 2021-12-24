@@ -99,4 +99,31 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-
+  deploy-lambda:
+    runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/qa'
+    needs: [sonar]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          restore-keys: npm-${{ env.cache-name }}
+      # - name: Deploy Lambda Function
+      #   uses: ./.github/actions/bdb-dig-do-pipelines-actions/lambdas
+      #   with:
+      #     function-name: ${{ env.team }}-${{ env.project_name }}
+      #     aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: "us-east-1"
+      #     version: $GITHUB_SHA
+      #     files-to-compress: ${{ env.files_compress }}
+      #     function-handler: ${{ env.handler }}
+      #     function-memory-size: ${{ env.memory }}
+      #     function-runtime: nodejs12.x
+      #     path-to-env-vars: pipeline/qa-env.json
