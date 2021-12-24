@@ -99,7 +99,7 @@ jobs:
           echo "##[set-output name=branch;]$(echo ${CURRENT_BRANCH})"
           echo "Sonar Branch report => " ${CURRENT_BRANCH}
       - name: SonarCloud Scanner
-        uses: ./.github/actions/bbog-dig-sonarcloud-pipeline
+        uses: SonarSource/sonarcloud-github-action@v1.3
         with:
           language: ${{ env.language }}
           current-branch: ${{ steps.long-lived-branch.outputs.branch }}
