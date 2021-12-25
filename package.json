@@ -1,7 +1,7 @@
 {
-  "name": "mag-stadistics-dna-processed-function",
+  "name": "mag-find-mutants-function",
   "version": "1.0.0",
-  "description": "This service is responsible for generating the statistics of all the DNA sequences processed to determine if a human is a mutant",
+  "description": "This service is in charge of determining if a person is a mutant by validating their DNA sequence",
   "main": "index.js",
   "scripts": {
     "test_jest": "jest --coverage --watchAll",
@@ -20,8 +20,15 @@
   },
   "homepage": "https://github.com/jpaomat/mag-stadistics-dna-processed-function#readme",
   "dependencies": {
+    "aws-sdk": "^2.1048.0",
     "babel-jest": "^26.6.3",
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.3",
+    "express": "^4.17.2",
+    "express-actuator": "^1.8.0",
     "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "typescript": "^4.5.4"
   },
