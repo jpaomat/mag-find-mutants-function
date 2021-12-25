@@ -100,8 +100,8 @@ jobs:
 
   deploy-lambda:
     runs-on: ubuntu-20.04
-    # if: github.ref == 'refs/heads/qa'
-    needs: [install-dev-dependencies]
+    if: github.ref == 'refs/heads/qa'
+    needs: [sonarcloud]
     steps:
       - uses: actions/checkout@v2
       - name: Restore cache
@@ -125,4 +125,4 @@ jobs:
         run: |
           npx ncc build index.ts
           zip -j deploy.zip ./dist/*
-          aws lambda update-function-code --function-name=mag-stadistics-dna-processed-function --zip-file=fileb://deploy.zip
+          aws lambda update-function-code --function-name=${{env.project_name}} --zip-file=fileb://deploy.zip
