@@ -1,0 +1,128 @@
+name: PR-build-test-deploy
+on:
+  push:
+    branches: [main, feature/*]
+env:
+  ### VARIABLES GENERALES ###
+  project_name: "mag-stadistics-dna-processed-function"
+  team: "mag"
+  language: "javascript"
+  files_compress: "src node_modules index.js package.json package-lock.json"
+  handler: index.handler
+  memory: 128
+
+jobs:
+  install-dev-dependencies:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Install Dependencies
+        run: |
+          npm install
+
+  test-lint:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Running Linter
+        run: npm run lint
+
+  test-coverage:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-main
+          restore-keys: npm-${{ env.cache-name }}
+      - name: Running Test
+        run: |
+          npm run test
+      - name: Persist Data
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+
+  sonarcloud:
+    runs-on: ubuntu-20.04
+    needs: [test-lint, test-coverage]
+    name: SonarCloud
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore Data
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+      - name: Current Branch
+        shell: bash
+        id: long-lived-branch
+        run: |
+          CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
+          if [ "$CURRENT_BRANCH" != "main" ] && [ "$CURRENT_BRANCH" != "staging" ] && [ "$CURRENT_BRANCH" != "qa" ]
+          then
+            CURRENT_BRANCH="qa"
+          fi
+          echo "##[set-output name=branch;]$(echo ${CURRENT_BRANCH})"
+          echo "Sonar Branch report => " ${CURRENT_BRANCH}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  deploy-lambda:
+    runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/qa'
+    needs: [sonarcloud]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Restore cache
+        uses: actions/cache@v2
+        env:
+          cache-name: nodejs-github-actions
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+          restore-keys: npm-${{ env.cache-name }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Deploy Lambda Function
+        run: |
+          npx ncc build index.ts
+          zip -j deploy.zip ./dist/*
+          aws lambda update-function-code --function-name=${{env.project_name}} --zip-file=fileb://deploy.zip
