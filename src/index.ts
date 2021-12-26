@@ -5,8 +5,8 @@ import { IRes } from './models/IResponse';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
     const response = {
+        body: 'Hola',
         statusCode: HttpStatus.OK,
-        body: 'Hola'
     };
     return response;
 };
