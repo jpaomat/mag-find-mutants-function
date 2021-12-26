@@ -12,6 +12,6 @@ PRIMARY KEY (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-------------INSERT DATA ON Table `mutants_general`.`DNA_VERIFICATION_MUTANTS`-------------------
+-----------------INSERT DATA ON Table `mutants_general`.`DNA_VERIFICATION_MUTANTS`-------------------
 
 INSERT INTO `mutants_general`.`DNA_VERIFICATION_MUTANTS` (DNA, MUTANT) VALUES ("['ATGCGA','CAGTGC','TTATGT','AGAAGG','CCCCTA','TCACTG']", 1);
