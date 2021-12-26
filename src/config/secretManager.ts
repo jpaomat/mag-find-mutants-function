@@ -1,7 +1,5 @@
 import AWS from 'aws-sdk';
-import debugLib from 'debug';
-
-const debug = debugLib('secretManager');
+import { debug } from 'console';
 export default class SecretsManager {
 
     public region: string;
