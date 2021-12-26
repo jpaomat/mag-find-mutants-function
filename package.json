@@ -4,6 +4,7 @@
   "description": "This service is in charge of determining if a person is a mutant by validating their DNA sequence",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test_jest": "jest --coverage --watchAll",
     "test": "jest --coverage --no-watchman",
     "lint": "tslint -c tslint.json -p tsconfig.json"
