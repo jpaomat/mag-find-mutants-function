@@ -1,4 +1,5 @@
 export interface IRes {
-    body: string;
+    body: any;
+    message: string;
     statusCode: number;
 }

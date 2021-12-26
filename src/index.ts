@@ -1,18 +1,34 @@
 import { Context, Handler } from 'aws-lambda';
-import { HttpStatus } from './config/httpStatus';
+import { getStatusText } from './config/getStatusText';
+import { httpStatus } from './config/httpStatus';
+import { templateResponse } from './config/templateResponse';
 import InsertVerificationDNA from './dbsource/InsertVerificationDNA';
 import { IReqEvent } from './models/IReqEvent';
 import { IRes } from './models/IResponse';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
-    console.log('Index 8 - Input to mag-find-mutants-function lambda: ', event);
-    let dnaData = event.dna;
-    const insertDnaDB = new InsertVerificationDNA();
-    const dnaSegment = `'${dnaData}'`;
-    const resultInsert = await insertDnaDB.insertDnaResult(dnaSegment, 1);
-    console.log('resultInsert', resultInsert);
-    return {
-        body: 'Hola',
-        statusCode: HttpStatus.OK,
-    };
+    console.log('Log 1 (CL 8-Index) -> Input data to mag-find-mutants-function lambda: ', event);
+    let response;
+    const dnaSequence = event.dna;
+    try {
+        if (!dnaSequence) {
+            throw {
+                body: 'The dna parameter was not sent',
+                message: getStatusText(400),
+            };
+        }
+        const insertDnaDB = new InsertVerificationDNA();
+        const resultInsertDna = await insertDnaDB.insertDnaResult(dnaSequence, 1);
+        console.log('Log 5 (CL 14-Index) -> Ressult DB when inserting dna sequence: ', resultInsertDna);
+        response = templateResponse(httpStatus.OK, 'OK', { mutant: true });
+    } catch (error: any) {
+        console.log('Log 6 (CL 26-Index) -> Failed response in mag-find-mutants-function lambda: ', error);
+        if (httpStatus[error.message]) {
+            response = templateResponse(httpStatus[error.message], error.message, error.body);
+        } else {
+            response = templateResponse(500, getStatusText(500) as string, error.body);
+        }
+    }
+    console.log('Log 7 (CL 30-Index) -> Response to mag-find-mutants-function lambda: ', response);
+    return response;
 };

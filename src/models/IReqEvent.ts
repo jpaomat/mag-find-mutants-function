@@ -1,3 +1,3 @@
 export interface IReqEvent {
-    dna: string[]
+    dna: string[];
 }

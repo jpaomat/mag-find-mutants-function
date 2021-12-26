@@ -10,7 +10,7 @@ export default class ConnectionDb {
     private port = '';
     private secretName: string;
 
-    constructor(secretName: string) { // /rds_db/mysql
+    constructor(secretName: string) {
         this.secretName = secretName;
     }
 

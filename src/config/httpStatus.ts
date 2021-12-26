@@ -1,4 +1,4 @@
-export const HttpStatus = {
+export const httpStatus: any = {
     BAD_REQUEST: 400,
     CREATED: 201,
     FOUND: 302,
