@@ -3,7 +3,7 @@ import ConnectionDb from '../config/ConnectionDb';
 export default class InsertVerificationDNA {
     public async insertDnaResult(dnaSegment: string, isMutant: number) {
         const clsConnectionDB = new ConnectionDb('/rds_db/mysql');
-        const table = 'gmutants_general.DNA_VERIFICATION_MUTANTS';
+        const table = 'mutants_general.DNA_VERIFICATION_MUTANTS';
         await clsConnectionDB.getCredentialDb();
         const query = `INSERT INTO ${table} (DNA, MUTANT) VALUES (${dnaSegment}, ${isMutant});`;
         const connection = await clsConnectionDB.getConnectionSingleton();
