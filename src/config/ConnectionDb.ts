@@ -1,5 +1,5 @@
 import { debug } from 'console';
-import SecretsManager from './secretManager';
+import SecretsManager from './SecretsManager';
 // tslint:disable-next-line
 const mysqlSingleton = require('mysql-singleton');
 
