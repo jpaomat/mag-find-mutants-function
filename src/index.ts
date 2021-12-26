@@ -5,20 +5,23 @@ import { templateResponse } from './config/templateResponse';
 import InsertVerificationDNA from './dbsource/InsertVerificationDNA';
 import { IReqEvent } from './models/IReqEvent';
 import { IRes } from './models/IResponse';
+import FindMutantService from './services/find-mutant/find-mutant.service';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
     console.log('Log 1 (CL 8-Index) -> Input data to mag-find-mutants-function lambda: ', event);
     let response;
     const dnaSequence = event.dna;
     try {
+        const mutantsSrv = new FindMutantService();
+        const insertDnaDB = new InsertVerificationDNA();
         if (!dnaSequence) {
             throw {
-                body: 'The dna parameter was not sent',
+                body: 'The dna parameter is required',
                 message: getStatusText(400),
             };
         }
-        const insertDnaDB = new InsertVerificationDNA();
-        const resultInsertDna = await insertDnaDB.insertDnaResult(dnaSequence, 1);
+        const isMutant = mutantsSrv.isMutant(dnaSequence);
+        const resultInsertDna = await insertDnaDB.insertDnaResult(dnaSequence, isMutant);
         console.log('Log 5 (CL 14-Index) -> Ressult DB when inserting dna sequence: ', resultInsertDna);
         response = templateResponse(httpStatus.OK, 'OK', { mutant: true });
     } catch (error: any) {
