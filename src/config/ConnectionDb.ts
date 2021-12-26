@@ -25,11 +25,11 @@ export default class ConnectionDb {
         );
         secret = JSON.parse(secret);
         console.log('Getting secret:', secret);
-        this.hostname = secret.magHost;
-        this.userName = secret.magUser;
-        this.password = secret.magPassword;
-        this.database = secret.magDatabase;
-        this.port = secret.mag.magPort;
+        this.hostname = secret.host;
+        this.userName = secret.username;
+        this.password = secret.password;
+        this.database = secret.dbInstanceIdentifier;
+        this.port = secret.port;
     }
 
     public getConnectionSingleton() {
