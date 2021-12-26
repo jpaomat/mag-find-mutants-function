@@ -6,7 +6,8 @@ import { IRes } from './models/IResponse';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
     const insertDnaDB = new InsertVerificationDNA();
-    const resultInsert = await insertDnaDB.insertDnaResult(['ATGCGA','CAGTGC','TTATGT','AGAAGG','CCCCTA','TCACTG'].toString(), 1);
+    const dnaSegment = `['ATGCGA','CAGTGC','TTATGT','AGAAGG','CCCCTA','TCACTG']`;
+    const resultInsert = await insertDnaDB.insertDnaResult(dnaSegment, 1);
     console.log('resultInsert', resultInsert);
     return {
         body: 'Hola',
