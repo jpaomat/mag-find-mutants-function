@@ -16,7 +16,7 @@
       false
     ],
     "no-console": [
-      true,
+      false,
       "log"
     ],
     "whitespace": [

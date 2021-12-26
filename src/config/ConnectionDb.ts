@@ -1,4 +1,3 @@
-import { debug } from 'console';
 import SecretsManager from './SecretsManager';
 // tslint:disable-next-line
 const mysqlSingleton = require('mysql-singleton');
@@ -25,7 +24,7 @@ export default class ConnectionDb {
             })
         );
         secret = JSON.parse(secret);
-        debug('Getting secret: %j', secret);
+        console.log('Getting secret:', secret);
         this.hostname = secret.magHost;
         this.userName = secret.magUser;
         this.password = secret.magPassword;

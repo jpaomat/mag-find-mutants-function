@@ -1,5 +1,4 @@
 import AWS from 'aws-sdk';
-import { debug } from 'console';
 export default class SecretsManager {
 
     public region: string;
@@ -18,9 +17,9 @@ export default class SecretsManager {
         return new Promise((resolve, reject) => {
             this.client.getSecretValue({ SecretId: this.secretName }, (err: any, data: any) => {
                 if (err) {
-                    debug('Failed to get secret: %j', err);
+                    console.log('Failed to get secret:', err);
                 } else {
-                    debug('Secret OK');
+                    console.log('Secret OK');
                     resolve(data);
                 }
             });
