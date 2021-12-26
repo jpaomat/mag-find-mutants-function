@@ -24,7 +24,6 @@ export default class ConnectionDb {
             })
         );
         secret = JSON.parse(secret);
-        console.log('Getting secret:', secret);
         this.hostname = secret.host;
         this.userName = secret.username;
         this.password = secret.password;
