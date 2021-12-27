@@ -7,19 +7,20 @@ export default class FindMutantService {
 
     public isMutant(dnaSequence: string[]) {
         return new Promise<any>((resolve, reject) => {
-            Promise.all([this.validateRowsAndColumns(dnaSequence), this.validateOblique(dnaSequence)]).then(result => {
+            Promise.all([this.validateRowsAndColumns(dnaSequence), this.validateOblique(dnaSequence)])
+            .then((result) => {
                 if (result[0] || result[1]) {
                     resolve(true);
                 } else {
                     resolve(false);
                 }
-            }).catch(reason=>{
+            }).catch((reason) => {
                 reject(reason);
             });
-        })
+        });
     }
 
-    private validateRowsAndColumns(dnaSequence: string[]){
+    private validateRowsAndColumns(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
         return new Promise<boolean>((resolve, reject) => {
             this.validateOblique(dnaSequence);
@@ -60,13 +61,13 @@ export default class FindMutantService {
         const numColumns = dnaSequence[0].length;
         return new Promise<boolean>((resolve, reject) => {
             for (let index = 3; index <= numRows + numColumns - 5; index++) {
-                let RightObliqueSequence ='';
-                let leftObliqueSequence ='';
+                let RightObliqueSequence = '';
+                let leftObliqueSequence = '';
                 for (let x = 0; x <= index && (x < numRows) && index - x < numColumns; x++) {
                     RightObliqueSequence = RightObliqueSequence.concat((dnaSequence[x].split(''))[index - x]);
                     leftObliqueSequence = leftObliqueSequence.concat((dnaSequence[x].split('').reverse())[index - x]);
                 }
-                for (let y = numColumns-1; y >= 0 && index - y >= 0 && index - y < numRows && index - y > 0; y--) {
+                for (let y = numColumns - 1; y >= 0 && index - y >= 0 && index - y < numRows && index - y > 0; y--) {
                     RightObliqueSequence = RightObliqueSequence.concat((dnaSequence[index - y].split(''))[y]);
                     leftObliqueSequence = leftObliqueSequence.concat((dnaSequence[index - y].split('').reverse())[y]);
                 }
