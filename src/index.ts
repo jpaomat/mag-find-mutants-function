@@ -26,9 +26,9 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
     } catch (error: any) {
         console.log('Log 6 (CL 26-Index) -> Failed response in mag-find-mutants-function lambda: ', error);
         if (httpStatus[error.message]) {
-            response = templateResponse(httpStatus[error.message], error.message, errorBody);
+            response = templateResponse(httpStatus[error.message], error.message, (errorBody ? errorBody : error.message));
         } else {
-            response = templateResponse(500, getStatusText(500) as string, error);
+            response = templateResponse(500, getStatusText(500) as string, error.message);
         }
     }
     console.log('Log 7 (CL 30-Index) -> Response to mag-find-mutants-function lambda: ', response);
