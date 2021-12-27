@@ -1,7 +1,7 @@
 name: PR-build-test-deploy
 on:
   push:
-    branches: [main, feature/*]
+    branches: [main, feature/*, qa]
 env:
   ### VARIABLES GENERALES ###
   project_name: "mag-find-mutants-function"
