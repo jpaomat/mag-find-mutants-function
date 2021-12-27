@@ -5,24 +5,26 @@ export default class FindMutantService {
 
     private readonly mutantsValidationsSrv = new MutantsValidationsService();
 
-    public isMutant(dnaSequence: string[]): boolean {
+    public isMutant(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
-        dnaSequence.forEach((rowSequence, index) => {
-            const numColumns = rowSequence.length;
-            const NxN = numRows === numColumns;
-            if (!NxN || !this.mutantsValidationsSrv.structureCorrect(rowSequence)) {
-                const messageStructure = 'The dna sequence does not have the correct structure';
-                throw {
-                    body: !NxN ? 'The dna sequence should be NxN' : messageStructure,
-                    message: getStatusText(400),
-                };
-            }
-            this.validateElementsRows(rowSequence);
-            this.validateElementsColumns(dnaSequence, index);
+        return new Promise<boolean>((resolve, reject) => {
+            dnaSequence.forEach((rowSequence, index) => {
+                const numColumns = rowSequence.length;
+                const NxN = numRows === numColumns;
+                if (!NxN || !this.mutantsValidationsSrv.structureCorrect(rowSequence)) {
+                    const messageStructure = 'The dna sequence does not have the correct structure';
+                    reject({
+                        body: !NxN ? 'The dna sequence should be NxN' : messageStructure,
+                        message: getStatusText(400),
+                    });
+                }
+                this.validateElementsRows(rowSequence);
+                this.validateElementsColumns(dnaSequence, index);
+            });
+            console.log('mutantSequence horizontal total', this.mutantsValidationsSrv.getNumMutantSequence());
+            const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
+            resolve((numMutantSequence > 1) ? true : false);
         });
-        console.log('mutantSequence horizontal total', this.mutantsValidationsSrv.getNumMutantSequence());
-        const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
-        return (numMutantSequence > 1) ? true : false;
     }
 
     private validateElementsRows(rowSequence: string) {

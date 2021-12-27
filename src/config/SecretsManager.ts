@@ -18,6 +18,7 @@ export default class SecretsManager {
             this.client.getSecretValue({ SecretId: this.secretName }, (err: any, data: any) => {
                 if (err) {
                     console.log('Failed to get secret:', err);
+                    reject(err);
                 } else {
                     console.log('Secret OK');
                     resolve(data);
