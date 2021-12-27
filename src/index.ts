@@ -11,7 +11,7 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
     console.log('Log 1 (CL 8-Index) -> Input data to mag-find-mutants-function lambda: ', event);
     let response;
     const dnaSequence = event.dna;
-    let errorBody;
+    let errorBody = null;
     try {
         const mutantsSrv = new FindMutantService();
         const insertDnaDB = new InsertVerificationDNA();
@@ -26,10 +26,10 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
     } catch (error: any) {
         console.log('Log 6 (CL 26-Index) -> Failed response in mag-find-mutants-function lambda: ', error);
         if (httpStatus[error.message]) {
-            errorBody = errorBody ? errorBody : error.message;
+            errorBody = errorBody ? errorBody : error.body;
             response = templateResponse(httpStatus[error.message], error.message, errorBody);
         } else {
-            response = templateResponse(500, getStatusText(500) as string, error.message);
+            response = templateResponse(500, getStatusText(500) as string, error.body);
         }
     }
     console.log('Log 7 (CL 30-Index) -> Response to mag-find-mutants-function lambda: ', response);
