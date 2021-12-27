@@ -8,15 +8,15 @@ export default class FindMutantService {
     public isMutant(dnaSequence: string[]) {
         return new Promise<any>((resolve, reject) => {
             Promise.all([this.validateRowsAndColumns(dnaSequence), this.validateOblique(dnaSequence)])
-            .then((result) => {
-                if (result[0] || result[1]) {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            }).catch((reason) => {
-                reject(reason);
-            });
+                .then((result) => {
+                    if (result[0] || result[1]) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                }).catch((reason) => {
+                    reject(reason);
+                });
         });
     }
 
@@ -46,16 +46,6 @@ export default class FindMutantService {
         });
     }
 
-    private validateElementsRows(rowSequence: string) {
-        this.mutantsValidationsSrv.setNumMutantSequence(rowSequence);
-    }
-
-    private validateElementsColumns(dnaSequence: string[], index: number) {
-        const col = dnaSequence.map((rowSequence) => ((rowSequence.split(''))[index]));
-        const colSequence = (col.toString()).replace(/,/g, '');
-        this.mutantsValidationsSrv.setNumMutantSequence(colSequence);
-    }
-
     private validateOblique(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
         const numColumns = dnaSequence[0].length;
@@ -71,6 +61,14 @@ export default class FindMutantService {
                     RightObliqueSequence = RightObliqueSequence.concat((dnaSequence[index - y].split(''))[y]);
                     leftObliqueSequence = leftObliqueSequence.concat((dnaSequence[index - y].split('').reverse())[y]);
                 }
+                if (!this.mutantsValidationsSrv.structureCorrect(RightObliqueSequence)
+                    || !this.mutantsValidationsSrv.structureCorrect(leftObliqueSequence)
+                ) {
+                    reject({
+                        body: 'The dna sequence does not have the correct structure',
+                        message: getStatusText(400),
+                    });
+                }
                 this.mutantsValidationsSrv.setNumMutantSequence(RightObliqueSequence);
                 this.mutantsValidationsSrv.setNumMutantSequence(leftObliqueSequence);
                 const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
@@ -81,5 +79,15 @@ export default class FindMutantService {
             }
             resolve(false);
         });
+    }
+
+    private validateElementsRows(rowSequence: string) {
+        this.mutantsValidationsSrv.setNumMutantSequence(rowSequence);
+    }
+
+    private validateElementsColumns(dnaSequence: string[], index: number) {
+        const col = dnaSequence.map((rowSequence) => ((rowSequence.split(''))[index]));
+        const colSequence = (col.toString()).replace(/,/g, '');
+        this.mutantsValidationsSrv.setNumMutantSequence(colSequence);
     }
 }
