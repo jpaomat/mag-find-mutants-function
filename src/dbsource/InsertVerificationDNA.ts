@@ -1,4 +1,4 @@
-import ConnectionDb from '../config/connection-db/ConnectionDb';
+import ConnectionDb from '../config/ConnectionDb';
 
 export default class InsertVerificationDNA {
     public async insertDnaResult(dnaSequence: string[], isMutant: boolean) {

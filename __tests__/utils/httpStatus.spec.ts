@@ -1,4 +1,4 @@
-import { httpStatus } from './httpStatus';
+import { httpStatus } from '../../src/utils/httpStatus';
 
 describe('httpStatus', () => {
     test('should be created', async () => {

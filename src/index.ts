@@ -2,11 +2,11 @@ import { Context, Handler } from 'aws-lambda';
 import InsertVerificationDNA from './dbsource/InsertVerificationDNA';
 import { IReqEvent } from './models/IReqEvent';
 import { IRes } from './models/IResponse';
-import FindMutantService from './services/find-mutant/FindMutantService';
-import MutantsValidationsService from './services/mutants-validations/MutantsValidationsService';
-import { getStatusText } from './utils/get-status-text/getStatusText';
-import { httpStatus } from './utils/http-status/httpStatus';
-import { templateResponse } from './utils/template-response/templateResponse';
+import FindMutantService from './services/FindMutantService';
+import MutantsValidationsService from './services/MutantsValidationsService';
+import { getStatusText } from './utils/getStatusText';
+import { httpStatus } from './utils/httpStatus';
+import { templateResponse } from './utils/templateResponse';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
     console.log('Log 1 (CL 12-Index) -> Input data to mag-find-mutants-function lambda: ', event);

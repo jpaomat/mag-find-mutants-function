@@ -1,4 +1,4 @@
-import MutantsValidationsService from './MutantsValidationsService';
+import MutantsValidationsService from '../../src/services/MutantsValidationsService';
 
 describe('MutantsValidationsService', () => {
     const service = new MutantsValidationsService();

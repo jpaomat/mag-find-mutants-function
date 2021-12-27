@@ -1,8 +1,8 @@
-import ConnectionDb from './ConnectionDb';
+import { getStatusText } from '../../src/utils/getStatusText';
 
 describe('getStatusText', () => {
     test('should be created', async () => {
-        // ConnectionDb
+        // getStatusText
         // expect(service).toBeTruthy();
     });
 

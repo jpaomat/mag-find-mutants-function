@@ -1,4 +1,4 @@
-import { templateResponse } from './templateResponse';
+import { templateResponse } from '../../src/utils/templateResponse';
 
 describe('templateResponse', () => {
     test('should be created', async () => {
