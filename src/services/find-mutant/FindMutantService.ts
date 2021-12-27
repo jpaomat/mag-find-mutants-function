@@ -9,7 +9,8 @@ export default class FindMutantService {
         return new Promise<any>((resolve, reject) => {
             Promise.all([this.validateRowsAndColumns(dnaSequence), this.validateOblique(dnaSequence)])
                 .then((result) => {
-                    if (result[0] || result[1]) {
+                    const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
+                    if (numMutantSequence > 1) {
                         resolve(true);
                     } else {
                         resolve(false);
@@ -22,8 +23,7 @@ export default class FindMutantService {
 
     private validateRowsAndColumns(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
-        return new Promise<boolean>((resolve, reject) => {
-            this.validateOblique(dnaSequence);
+        return new Promise<number>((resolve, reject) => {
             for (const [index, rowSequence] of dnaSequence.entries()) {
                 const numColumns = rowSequence.length;
                 const NxN = numRows === numColumns;
@@ -36,20 +36,15 @@ export default class FindMutantService {
                 }
                 this.validateElementsRows(rowSequence);
                 this.validateElementsColumns(dnaSequence, index);
-                const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
-                if (numMutantSequence > 1) {
-                    resolve(true);
-                    return;
-                }
             }
-            resolve(false);
+            resolve(this.mutantsValidationsSrv.getNumMutantSequence());
         });
     }
 
     private validateOblique(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
         const numColumns = dnaSequence[0].length;
-        return new Promise<boolean>((resolve, reject) => {
+        return new Promise<number>((resolve, reject) => {
             for (let index = 3; index <= numRows + numColumns - 5; index++) {
                 let RightObliqueSequence = '';
                 let leftObliqueSequence = '';
@@ -71,13 +66,8 @@ export default class FindMutantService {
                 }
                 this.mutantsValidationsSrv.setNumMutantSequence(RightObliqueSequence);
                 this.mutantsValidationsSrv.setNumMutantSequence(leftObliqueSequence);
-                const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
-                if (numMutantSequence > 1) {
-                    resolve(true);
-                    return;
-                }
             }
-            resolve(false);
+            resolve(this.mutantsValidationsSrv.getNumMutantSequence());
         });
     }
 
