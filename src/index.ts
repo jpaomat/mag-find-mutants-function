@@ -23,7 +23,7 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
         const isMutant = mutantsSrv.isMutant(dnaSequence);
         const resultInsertDna = await insertDnaDB.insertDnaResult(dnaSequence, isMutant);
         console.log('Log 5 (CL 14-Index) -> Ressult DB when inserting dna sequence: ', resultInsertDna);
-        response = templateResponse(httpStatus.OK, 'OK', { mutant: true });
+        response = templateResponse(httpStatus.OK, 'OK', { mutant: isMutant });
     } catch (error: any) {
         console.log('Log 6 (CL 26-Index) -> Failed response in mag-find-mutants-function lambda: ', error);
         if (httpStatus[error.message]) {
