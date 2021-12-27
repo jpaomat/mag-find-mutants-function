@@ -5,7 +5,7 @@ import { templateResponse } from './config/templateResponse';
 import InsertVerificationDNA from './dbsource/InsertVerificationDNA';
 import { IReqEvent } from './models/IReqEvent';
 import { IRes } from './models/IResponse';
-import FindMutantService from './services/find-mutant/find-mutant.service';
+import FindMutantService from './services/find-mutant/FindMutantService';
 
 export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
     console.log('Log 1 (CL 8-Index) -> Input data to mag-find-mutants-function lambda: ', event);
