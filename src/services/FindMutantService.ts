@@ -1,5 +1,5 @@
-import { getStatusText } from '../../config/getStatusText';
-import MutantsValidationsService from '../mutants-validations/MutantsValidationsService';
+import { getStatusText } from '../utils/getStatusText';
+import MutantsValidationsService from './MutantsValidationsService';
 
 export default class FindMutantService {
 
