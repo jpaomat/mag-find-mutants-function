@@ -8,7 +8,7 @@ export default class FindMutantService {
     public isMutant(dnaSequence: string[]) {
         const numRows = dnaSequence.length;
         return new Promise<boolean>((resolve, reject) => {
-            dnaSequence.forEach((rowSequence, index) => {
+            for (const [index, rowSequence] of dnaSequence.entries()) {
                 const numColumns = rowSequence.length;
                 const NxN = numRows === numColumns;
                 if (!NxN || !this.mutantsValidationsSrv.structureCorrect(rowSequence)) {
@@ -20,10 +20,13 @@ export default class FindMutantService {
                 }
                 this.validateElementsRows(rowSequence);
                 this.validateElementsColumns(dnaSequence, index);
-            });
-            console.log('mutantSequence horizontal total', this.mutantsValidationsSrv.getNumMutantSequence());
-            const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
-            resolve((numMutantSequence > 1) ? true : false);
+                const numMutantSequence = this.mutantsValidationsSrv.getNumMutantSequence();
+                if (numMutantSequence > 1) {
+                    resolve(true);
+                    break;
+                }
+            }
+            resolve(false);
         });
     }
 
