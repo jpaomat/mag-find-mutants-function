@@ -14,9 +14,9 @@ export default class InsertVerificationDNA {
     private callQuery(connection: any, queryCustom: string) {
         return new Promise((resolve, reject) => {
             connection.query(queryCustom, (err: any, result: any) => {
-                console.log('Log 2 (CL 17-InsertVerificationDNA) -> Query to execute: ', queryCustom);
+                console.log('Log 3 (CL 17-InsertVerificationDNA) -> Query to execute: ', queryCustom);
                 if (err) {
-                    console.log('Log 3 (CL 19-InsertVerificationDNA) -> Error to execute query', err);
+                    console.log('Log 4 (CL 19-InsertVerificationDNA) -> Error to execute query', err);
                     return reject(err);
                 } else {
                     return resolve(result);
