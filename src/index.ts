@@ -34,4 +34,3 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
     console.log('Log 7 (CL 30-Index) -> Response to mag-find-mutants-function lambda: ', response);
     return response;
 };
-
