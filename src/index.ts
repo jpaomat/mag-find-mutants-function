@@ -15,8 +15,8 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
     try {
         const mutantsSrv = new FindMutantService();
         const insertDnaDB = new InsertVerificationDNA();
-        errorBody = 'The dna parameter is required';
         if (!dnaSequence) {
+            errorBody = 'The dna parameter is required';
             throw new Error(getStatusText(400));
         }
         const isMutant = await mutantsSrv.isMutant(dnaSequence);
