@@ -2,7 +2,7 @@ import MutantsValidationsService from '../../src/services/MutantsValidationsServ
 
 describe('MutantsValidationsService', () => {
     const service = new MutantsValidationsService();
-    test('should be created', async () => {
+    test('should be created', () => {
         expect(service).toBeTruthy();
     });
 

@@ -35,7 +35,7 @@ jest.mock('aws-sdk', () => {
         }
     }
 });
-// -----------------------------mysql-singleton----------------------------------------------------
+// ---------------------------mock--mysql-singleton----------------------------------------------------
 jest.mock('mysql-singleton', () => ({
     config: function (data: any) {
         return data
@@ -51,10 +51,8 @@ jest.mock('mysql-singleton', () => ({
                 let reject = null;
                 if (q.indexOf('TABLE_TEST_MUTANTS') !== -1) {
                     resolve = mockCallBD.OK;
-                } else if (q.indexOf("null") === -1) {
-                    resolve = mockCallBD.OK;
                 } else {
-                    reject = mockCallBD.NOT_FOUND;
+                    reject = 'mock error';
                 };
                 cb(reject, resolve)
             },
@@ -80,6 +78,15 @@ describe('Find mutants lambda index', () => {
         }
         const response = await handler(event, {} as Context, mockCalback);
         expect((response as IRes).statusCode).toEqual(200);
+    });
+
+    test('should return error when call database.table and that not exist', async () => {
+        const event: IReqEvent = {
+            dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']
+        }
+        process.env.mutantsTable = 'NOT_EXIST';
+        const response = await handler(event, {} as Context, mockCalback);
+        expect((response as IRes).statusCode).toEqual(500);
     });
 
     test('should validate that the event parameter is not sent and return fail response with statusCode 400', async () => {

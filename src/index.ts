@@ -1,9 +1,7 @@
 import { Context, Handler } from 'aws-lambda';
 import InsertVerificationDNA from './dbsource/InsertVerificationDNA';
-import { IReqEvent } from './models/IReqEvent';
 import { IRes } from './models/IResponse';
 import FindMutantService from './services/FindMutantService';
-import MutantsValidationsService from './services/MutantsValidationsService';
 import { getStatusText } from './utils/getStatusText';
 import { httpStatus } from './utils/httpStatus';
 import { templateResponse } from './utils/templateResponse';
