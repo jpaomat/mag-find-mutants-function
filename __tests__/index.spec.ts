@@ -2,8 +2,8 @@ import { Callback, Context } from 'aws-lambda';
 import { handler } from '../src/index';
 import { IReqEvent } from '../src/models/IReqEvent';
 import { IRes } from '../src/models/IResponse';
-import { mockCallBD } from './__mocks__/callDB.mock';
-import { mockSecretManager } from './__mocks__/SecretManager.mock';
+const mockSecretManager = require('./__mocks__/SecretManager.mock.json');
+const mockCallBD = require('./__mocks__/SecretManager.mock.json');
 
 // -----------------------------mock-aws----------------------------------------------------------
 jest.mock('aws-sdk', () => {
