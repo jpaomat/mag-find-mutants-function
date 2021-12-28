@@ -16,16 +16,16 @@ describe('FindMutantService', () => {
         expect(isMutant).toBeTruthy();
     });
 
-    test('should validate that sequence in not NxN', async () => {
-        service.isMutant(['ATCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']).then().catch(error => {
-            expect(error.message).toEqual('BAD_REQUEST');
-        });
-    });
+    // test('should validate that sequence in not NxN', async () => {
+    //     service.isMutant(['ATCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']).then().catch(error => {
+    //         expect(error.message).toEqual('BAD_REQUEST');
+    //     });
+    // });
 
-    test('should validate that sequence dont have the correct structure', async () => {
-        service.isMutant(['ATXCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']).then().catch(error => {
-            expect(error.message).toEqual('BAD_REQUEST');
-        });
-    });
+    // test('should validate that sequence dont have the correct structure', async () => {
+    //     service.isMutant(['ATXCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']).then().catch(error => {
+    //         expect(error.message).toEqual('BAD_REQUEST');
+    //     });
+    // });
 
 });
