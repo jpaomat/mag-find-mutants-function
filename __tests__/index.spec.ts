@@ -85,20 +85,16 @@ describe('Find mutants lambda index', () => {
             dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']
         }
         process.env.mutantsTable = 'NOT_EXIST';
-        try {
-            const response = await handler(event, {} as Context, mockCalback);
-            expect((response as IRes).statusCode).toEqual(500);
-        } catch (error) {}
+        const response = await handler(event, {} as Context, mockCalback);
+        expect((response as IRes).statusCode).toEqual(500);
     });
 
     test('should validate that the event parameter is not sent and return fail response with statusCode 400', async () => {
         const event = {
             dna: null
         }
-        try {
-            const response = await handler(event, {} as Context, mockCalback);
-            expect((response as IRes).statusCode).toEqual(400);
-        } catch (error) {}
+        const response = await handler(event, {} as Context, mockCalback);
+        expect((response as IRes).statusCode).toEqual(400);
     });
 
 });
