@@ -1,4 +1,4 @@
-import FindMutantService from '../FindMutantService';
+import FindMutantService from '../../src/services/FindMutantService';
 
 describe('FindMutantService', () => {
     const service = new FindMutantService();
