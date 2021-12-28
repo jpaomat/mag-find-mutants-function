@@ -101,7 +101,7 @@ jobs:
   deploy-lambda:
     runs-on: ubuntu-20.04
     # if: github.ref == 'refs/heads/qa'
-    # needs: [install-dev-dependencies]
+    needs: [sonarcloud]
     steps:
       - uses: actions/checkout@v2
       - name: Restore cache
