@@ -65,8 +65,7 @@
 
   },
   "include": [
-    "./src"
-, "__tests__"  ],
+    "./src"],
   "exclude": [
     "../../mag-find-mutants-function/node_modules",
     "./node_modules/*",
