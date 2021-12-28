@@ -4,7 +4,7 @@ on:
     branches: [main, feature/*]
 env:
   ### VARIABLES GENERALES ###
-  project_name: "mag-stadistics-dna-processed-function"
+  project_name: "mag-find-mutants-function"
   team: "mag"
   language: "javascript"
   files_compress: "src node_modules index.js package.json package-lock.json"
@@ -100,7 +100,7 @@ jobs:
 
   deploy-lambda:
     runs-on: ubuntu-20.04
-    if: github.ref == 'refs/heads/qa'
+    # if: github.ref == 'refs/heads/qa'
     needs: [sonarcloud]
     steps:
       - uses: actions/checkout@v2
@@ -115,6 +115,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12.x'
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Move node_modules to dist
+        run: mv node_modules build/node_modules
+      - name: Zip
+        run: (cd build && zip -r ../function.zip .)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -122,7 +130,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy Lambda Function
+          # npx ncc build index.ts
+          # zip function.zip ./build/*
         run: |
-          npx ncc build index.ts
-          zip -j deploy.zip ./dist/*
-          aws lambda update-function-code --function-name=${{env.project_name}} --zip-file=fileb://deploy.zip
+          aws lambda update-function-code --function-name=${{env.project_name}} --zip-file=fileb://function.zip
