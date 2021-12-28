@@ -18,8 +18,8 @@
     "//1": "Use git commit --no-verify to bypass the pre-commit hook",
     "//2": "Use git push --no-verify to bypass the pre-push hook",
     "hooks": {
-      "pre-commit": "npx run lint",
-      "pre-push": "npx run test"
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
     }
   },
   "keywords": [
@@ -49,6 +49,6 @@
     "ts-jest": "^26.0.0",
     "ts-node": "^8.0.2",
     "tslint": "~5.17.0",
-    "typescript": "~4.1.2"
+    "typescript": "^4.5.4"
   }
 }
