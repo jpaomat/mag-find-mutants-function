@@ -8,7 +8,7 @@ import { getStatusText } from './utils/getStatusText';
 import { httpStatus } from './utils/httpStatus';
 import { templateResponse } from './utils/templateResponse';
 
-export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, context: Context): Promise<IRes> => {
+export const handler: Handler<any, IRes> = async (event, context: Context): Promise<IRes> => {
     console.log('Log 1 (CL 12-Index) -> Input data to mag-find-mutants-function lambda: ', event);
     let response;
     const dnaSequence = event.dna;
@@ -17,7 +17,7 @@ export const handler: Handler<IReqEvent, IRes> = async (event: IReqEvent, contex
         const mutantsSrv = new FindMutantService();
         const insertDnaDB = new InsertVerificationDNA();
 
-        if (!dnaSequence) {
+        if (!dnaSequence || !Array.isArray(dnaSequence)) {
             errorBody = 'The dna parameter is required';
             throw new Error(getStatusText(400));
         }
