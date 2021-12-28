@@ -15,8 +15,6 @@
     "url": "git+https://github.com/jpaomat/mag-stadistics-dna-processed-function.git"
   },
   "husky": {
-    "//1": "Use git commit --no-verify to bypass the pre-commit hook",
-    "//2": "Use git push --no-verify to bypass the pre-push hook",
     "hooks": {
       "pre-commit": "npm run lint",
       "pre-push": "npm run test"
