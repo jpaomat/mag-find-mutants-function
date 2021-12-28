@@ -9,7 +9,7 @@
     "test1": "jest",
     "test": "jest --coverage --no-watchman",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "prepare": "husky install"
+    "prepare": "is-ci || husky install"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,8 @@
     "@types/jest": "^27.0.3",
     "@types/node": "14.6.2",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.4",
+    "is-ci": "^3.0.1",
     "jest": "^24.9.0",
     "ts-jest": "^26.0.0",
     "ts-node": "^8.0.2",
