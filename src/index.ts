@@ -23,7 +23,11 @@ export const handler: Handler<any, IRes> = async (event, context: Context): Prom
         console.log('Log 2 (CL 25-Index) -> Number of sequences: ', resultMutant.numMutantSequence);
         const resultInsertDna = await insertDnaDB.insertDnaResult(dnaSequence, resultMutant.isMutant);
         console.log('Log 5 (CL 27-Index) -> Ressult DB when inserting dna sequence: ', resultInsertDna);
-        response = templateResponse(httpStatus.OK, 'OK', { mutant: resultMutant.isMutant });
+        if (resultMutant.isMutant) {
+            response = templateResponse(httpStatus.OK, 'OK', { mutant: resultMutant.isMutant });
+        } else {
+            response = templateResponse(httpStatus.FORBIDDEN, 'FORBIDDEN', { mutant: resultMutant.isMutant });
+        }
     } catch (error: any) {
         console.log('Log 6 (CL 30-Index) -> Failed response in mag-find-mutants-function lambda: ', error);
         if (httpStatus[error.message]) {
