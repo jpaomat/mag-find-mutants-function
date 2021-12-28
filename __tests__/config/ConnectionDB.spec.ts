@@ -1,8 +1,8 @@
 import ConnectionDb from '../../src/config/ConnectionDb';
 
 describe('getStatusText', () => {
-    const service = new ConnectionDb('secret');
-    test('should be created', () => {
+    test('should be created', async () => {
+        const service = new ConnectionDb('secret');
         expect(service).toBeTruthy();
     });
 

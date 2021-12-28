@@ -80,21 +80,21 @@ describe('Find mutants lambda index', () => {
         expect((response as IRes).statusCode).toEqual(200);
     });
 
-    // test('should return error when call database.table and that not exist', async () => {
-    //     const event: IReqEvent = {
-    //         dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']
-    //     }
-    //     process.env.mutantsTable = 'NOT_EXIST';
-    //     const response = await handler(event, {} as Context, mockCalback);
-    //     expect((response as IRes).statusCode).toEqual(500);
-    // });
+    test('should return error when call database.table and that not exist', async () => {
+        const event: IReqEvent = {
+            dna: ['ATGCGA', 'CAGTGC', 'TTATGT', 'AGAAGG', 'CCCCTA', 'TCACTG']
+        }
+        process.env.mutantsTable = 'NOT_EXIST';
+        const response = await handler(event, {} as Context, mockCalback);
+        expect((response as IRes).statusCode).toEqual(500);
+    });
 
-    // test('should validate that the event parameter is not sent and return fail response with statusCode 400', async () => {
-    //     const event = {
-    //         dna: null
-    //     }
-    //     const response = await handler(event, {} as Context, mockCalback);
-    //     expect((response as IRes).statusCode).toEqual(400);
-    // });
+    test('should validate that the event parameter is not sent and return fail response with statusCode 400', async () => {
+        const event = {
+            dna: null
+        }
+        const response = await handler(event, {} as Context, mockCalback);
+        expect((response as IRes).statusCode).toEqual(400);
+    });
 
 });

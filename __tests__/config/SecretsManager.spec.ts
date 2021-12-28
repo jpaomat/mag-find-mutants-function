@@ -23,8 +23,10 @@ jest.mock('aws-sdk', () => {
 
 describe('getStatusText', () => {
     const service = new SecretsManager('secretName')
-    test('should be created', () => {
-        service.getSecretValue();
+    test('should be created', async () => {
+        service.getSecretValue().then().catch(error=>{
+            console.log('error', error)
+        });
         expect(service).toBeTruthy();
     });
 
