@@ -1,5 +1,5 @@
 # mag-find-mutants-function
-Este servicio se encarga de determinar si una oersona es un mutante al validar su secuencia de ADN.
+Este servicio se encarga de determinar si una persona es un mutante al validar su secuencia de ADN.
 
 ## Instalación
 ***
@@ -36,3 +36,6 @@ sonar-> [Clean Code-sonar-reporter-mag-find-mutants-function](https://sonarcloud
 En el siguiente Link encuentras la documentación para hacer el consumo del servicio /mutant a traves de swagger o generar el curl para su ejecución en POSTMAN:
 
 [Api-mag-find-mutants-function-swagger](https://app.swaggerhub.com/apis-docs/jpaomat/mag-mutantns_api/v1)
+
+##Ejemplpo de los parámetros de entrada:
+POST → /mutant/ { “dna”:["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"] }
