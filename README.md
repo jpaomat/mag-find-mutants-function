@@ -5,8 +5,8 @@ Este servicio se encarga de determinar si una oersona es un mutante al validar s
 ***
 installation.
 ```
-$ git clone https://github.com/jpaomat/mag-stadistics-dna-processed-function.git
-$ cd mag-stadistics-dna-processed-function
+$ git clone https://github.com/jpaomat/mag-find-mutants-function.git
+$ cd mag-find-mutants-function
 ```
 ## Ejecutando las pruebas ⚙️
 
@@ -27,5 +27,10 @@ Es importante tener en cuenta que este proyecto esta configurado para que al hac
 
 Una vez se suban los cambios empieza a ejecutarse el pipeline que se encarga de desplegar el código en el servicios Lambda de AWS.
 
-[here](https://github.com/jpaomat/mag-find-mutants-function/actions) workflows de GithubActions 
-[here](https://github.com/jpaomat/mag-find-mutants-function/actions/runs/1629141839) workflows de GithubActions 
+[mag-find-mutants-function/actions](https://github.com/jpaomat/mag-find-mutants-function/actions) workflows de GithubActions 
+[mag-find-mutants-function/actions/runs](https://github.com/jpaomat/mag-find-mutants-function/actions/runs/1629141839) workflows de GithubActions 
+
+## Consumo del Servicio
+En el siguiente Link encuentras la documentación para hacer el consumo del servicio /mutant a traves de suagger o generar el curl para su ejecución en POSTMAN:
+
+[Api-mag-find-mutants-function-swagger](https://app.swaggerhub.com/apis-docs/jpaomat/mag-mutantns_api/v1)
