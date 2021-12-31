@@ -27,8 +27,8 @@ Es importante tener en cuenta que este proyecto esta configurado para que al hac
 
 Una vez se suban los cambios empieza a ejecutarse el pipeline que se encarga de desplegar el código en el servicios Lambda de AWS.
 
-[mag-find-mutants-function/actions](https://github.com/jpaomat/mag-find-mutants-function/actions) workflows de GithubActions 
-[mag-find-mutants-function/actions/runs](https://github.com/jpaomat/mag-find-mutants-function/actions/runs/1629141839) workflows de GithubActions 
+1. [mag-find-mutants-function/actions](https://github.com/jpaomat/mag-find-mutants-function/actions) workflows de GithubActions 
+2. [mag-find-mutants-function/actions/runs](https://github.com/jpaomat/mag-find-mutants-function/actions/runs/1641530241) ultimo pipeline ejecutado
 
 sonar-> [Clean Code-sonar-reporter-mag-find-mutants-function](https://sonarcloud.io/summary/new_code?branch=feature%2FunitTests&id=jpaomat_mag-find-mutants-function)
 
