@@ -30,7 +30,9 @@ Una vez se suban los cambios empieza a ejecutarse el pipeline que se encarga de 
 [mag-find-mutants-function/actions](https://github.com/jpaomat/mag-find-mutants-function/actions) workflows de GithubActions 
 [mag-find-mutants-function/actions/runs](https://github.com/jpaomat/mag-find-mutants-function/actions/runs/1629141839) workflows de GithubActions 
 
+sonar-> [Clean Code-sonar-reporter-mag-find-mutants-function](https://sonarcloud.io/summary/new_code?branch=feature%2FunitTests&id=jpaomat_mag-find-mutants-function)
+
 ## Consumo del Servicio
-En el siguiente Link encuentras la documentación para hacer el consumo del servicio /mutant a traves de suagger o generar el curl para su ejecución en POSTMAN:
+En el siguiente Link encuentras la documentación para hacer el consumo del servicio /mutant a traves de swagger o generar el curl para su ejecución en POSTMAN:
 
 [Api-mag-find-mutants-function-swagger](https://app.swaggerhub.com/apis-docs/jpaomat/mag-mutantns_api/v1)
