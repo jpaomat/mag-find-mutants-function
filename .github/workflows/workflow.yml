@@ -88,7 +88,7 @@ jobs:
           CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           if [ "$CURRENT_BRANCH" != "main" ] && [ "$CURRENT_BRANCH" != "staging" ] && [ "$CURRENT_BRANCH" != "qa" ]
           then
-            CURRENT_BRANCH="qa"
+            CURRENT_BRANCH="main"
           fi
           echo "##[set-output name=branch;]$(echo ${CURRENT_BRANCH})"
           echo "Sonar Branch report => " ${CURRENT_BRANCH}
