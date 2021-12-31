@@ -37,5 +37,6 @@ En el siguiente Link encuentras la documentación para hacer el consumo del serv
 
 [Api-mag-find-mutants-function-swagger](https://app.swaggerhub.com/apis-docs/jpaomat/mag-mutantns_api/v1)
 
-## Ejemplpo de los parámetros de entrada:
-POST → /mutant/ { “dna”:["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"] }
+## Ejemplo de los parámetros de entrada:
+POST → /mutant/ { “dna”:["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"] } -> secuencia ADN de un mutante
+POST → /mutant/ { “dna”:["ATGCGA","CAGTGC","TTATTT","AGACGG","GCGTCA","TCACTG"] } -> secuencia ADN de un humano
