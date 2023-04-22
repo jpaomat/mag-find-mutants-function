@@ -19,6 +19,19 @@ _Adicional debe ejecutar el comando `npm install` para instalar todas las depend
 ```
 npm install
 ```
+### Scripts Disponibles
+
+_En el directorio del proyecto, puede ejecutar los siguientes comandos para correr el proyecto localmente, las pruebas unitarias y el linter:_
+
+#### Ejecutar el App en modo desarrollo ⚙️
+
+```
+npm start
+```
+Este comando por default ejecuta la App en el navegador en el puerto 3000 [http://localhost:3000](http://localhost:3000).
+
+
+
 
 
 
