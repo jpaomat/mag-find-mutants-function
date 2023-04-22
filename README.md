@@ -30,7 +30,11 @@ npm start
 ```
 Este comando por default ejecuta la App en el navegador en el puerto 3000 [http://localhost:3000](http://localhost:3000).
 
-
+#### Ejecutar test unitarios ⚙️
+_Para garantizar que cada vez que se haga un nuevo cambio en el proyecto y se quiera agregar el `commit` correspondiente, se implementó `husky` con el hook pre-commit que se encarga de ejecutar automaticamente los tests antes de crear el commit, y en caso de presentarse algún error en las pruebas no permite crear commit_
+```
+npm run test
+```
 
 
 
