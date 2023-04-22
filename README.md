@@ -1,4 +1,4 @@
-# techtronix-app
+# Techtronix Store App
 
 _Esta App se encarga mostrar los diferentes productos que se ofrecen en la tienda online Techtonix._
 
@@ -7,16 +7,23 @@ _Esta App se encarga mostrar los diferentes productos que se ofrecen en la tiend
 
 _Se deben ejecutar los siguientes comandos para obtener una copia local del proyecto, para desarrollo y pruebas._
 
-## Instalación 🔧
+### Instalación 🔧
 
 _Inicialmente se debe clonar el proyecto e ingresar al mismo usando los comandos:_
 
 ```
-$ git clone https://github.com/jpaomat/techtronix-app.git
-$ cd techtronix-app
+git clone https://github.com/jpaomat/techtronix-app.git
+cd techtronix-app
 ```
 _Adicional debe ejecutar el comando `npm install` para instalar todas las dependencias necesarias para ejecutar el proyecto localmente._
-$ npm install
+```
+npm install
+```
+
+
+
+
+
 
 ## Available Scripts
 
